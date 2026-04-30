@@ -1,0 +1,20 @@
+print("Hello World")
+print("Hello World")
+print("Hello World")
+print("Hello World\n")
+print()
+
+print("Hello World\nhello world\nHello World\nHello World")
+
+print("Hello"+ "Simon")
+print("Hello"  +" Simon")
+print("Hello " + "Simon")
+print("Hello" + "" + "Simon")
+print("Hello" + " " + "Simon")
+
+print("My notes from Day 1")
+print("I use print() when I want to show something on the screen.")
+print("Text in Python is written inside quotation marks.")
+print("I can join pieces of text together with the + sign.")
+print("A new line can be created with \\n.")
+print("If I want to print one backslash \\, I have to write two in the code: \\\\.")
