@@ -29,15 +29,15 @@ print("Welcome to the Group Snack Splitter!")
 
 snack_cost = input("How much did the snacks cost? ")
 delivery_cost = input("How much was the delivery cost? ")
-people = input("How many people are sharing the snacks? ")
+people = float(input("How many people are sharing the snacks? "))
 
 # Convert the inputs to numbers below:
-total_cost = int(snack_cost) + int(delivery_cost) / int(people)
-
+total_cost = float(snack_cost) + float(delivery_cost)
 # Calculate the total cost below:
 print(f"The total cost is: {total_cost}")
 
 # Calculate how much each person should pay below:
-
+split = total_cost/people
+print(f"Each person should pay {split} dollars.")
 
 # Print the final result below:

@@ -41,3 +41,6 @@ print(float("3.14"))   # str to float
 print(str(123))        # int to str
 
 print(int("1234") + 5678)
+
+a = int("5") / int(2.7)
+print(a)
