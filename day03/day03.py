@@ -1,5 +1,3 @@
-from random import choice
-
 print(r""" 
          __________
         /\____;;___\
