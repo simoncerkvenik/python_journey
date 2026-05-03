@@ -29,11 +29,11 @@ elif choice1 == "left":
         print("You die by alligator!")
     elif choice2 == "wait":
         choice3 = input("Which door: red, blue or yellow")
-    if choice3 == "red":
-        print("Burned by fire. Game Over")
-    elif choice3 == "blue":
-        print("Eaten by beasts. Game Over")
-    elif choice3 == "yellow":
-        print("Well done. You win")
-    else:
-        print("Game Over")
+        if choice3 == "red":
+            print("Burned by fire. Game Over")
+        elif choice3 == "blue":
+            print("Eaten by beasts. Game Over")
+        elif choice3 == "yellow":
+            print("Well done. You win")
+        else:
+            print("Game Over")
