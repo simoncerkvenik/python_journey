@@ -78,9 +78,27 @@ list_of_lower_letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", 
     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 list_of_upper_letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
     "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+n_letters = list_of_upper_letters + list_of_lower_letters
 numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 symbols = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "-", "/", "?", "@"]
 
-print(input("How many letters you wont in password? "))
-print(input("How many numbers you wont in password? "))
-print(input("How many symbols you wont in password? "))
+nr_letters = int(input("How many letters you wont in password? "))
+nr_numbers = int(input("How many numbers you wont in password? "))
+nr_symbols = int(input("How many symbols you wont in password? "))
+
+password_list = []
+
+for letter in range(nr_letters):
+    random_letter = random.choice(n_letters)
+    password_list.append(random_letter)
+for number in range(nr_numbers):
+    random_number = random.choice(numbers)
+    password_list.append(random_number)
+for symbol in range(nr_symbols):
+    random_symbol = random.choice(symbols)
+    password_list.append(random_symbol)
+
+random.shuffle(password_list)
+
+password = "".join(password_list)
+print(f"\nYour generated password is: {password}")
