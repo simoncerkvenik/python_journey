@@ -323,113 +323,178 @@ from stanfordkarel import *
 # and picks up all beepers.
 
 
-NORTH = 0
-EAST = 1
-SOUTH = 2
-WEST = 3
-
-direction = EAST
-current_x = 0
-current_y = 0
-
-visited = set()
-
-
-def set_start_direction():
-    global direction
-
-    if facing_north():
-        direction = NORTH
-    elif facing_east():
-        direction = EAST
-    elif facing_south():
-        direction = SOUTH
-    elif facing_west():
-        direction = WEST
-
-
-def turn_left_smart():
-    global direction
-
+# NORTH = 0
+# EAST = 1
+# SOUTH = 2
+# WEST = 3
+#
+# direction = EAST
+# current_x = 0
+# current_y = 0
+#
+# visited = set()
+#
+#
+# def set_start_direction():
+#     global direction
+#
+#     if facing_north():
+#         direction = NORTH
+#     elif facing_east():
+#         direction = EAST
+#     elif facing_south():
+#         direction = SOUTH
+#     elif facing_west():
+#         direction = WEST
+#
+#
+# def turn_left_smart():
+#     global direction
+#
+#     turn_left()
+#
+#     direction = (direction - 1) % 4
+#
+#
+# def turn_right():
+#     turn_left_smart()
+#     turn_left_smart()
+#     turn_left_smart()
+#
+#
+# def turn_around():
+#     turn_left_smart()
+#     turn_left_smart()
+#
+#
+# def face_direction(target_direction):
+#     while direction != target_direction:
+#         turn_left_smart()
+#
+#
+# def move_smart():
+#     global current_x
+#     global current_y
+#
+#     move()
+#
+#     if direction == NORTH:
+#         current_y += 1
+#     elif direction == EAST:
+#         current_x += 1
+#     elif direction == SOUTH:
+#         current_y -= 1
+#     elif direction == WEST:
+#         current_x -= 1
+#
+#
+# def next_position():
+#     if direction == NORTH:
+#         return current_x, current_y + 1
+#     elif direction == EAST:
+#         return current_x + 1, current_y
+#     elif direction == SOUTH:
+#         return current_x, current_y - 1
+#     elif direction == WEST:
+#         return current_x - 1, current_y
+#
+#
+# def pick_all_here():
+#     while beepers_present():
+#         pick_beeper()
+#
+#
+# def explore():
+#     visited.add((current_x, current_y))
+#
+#     pick_all_here()
+#
+#     start_direction = direction
+#
+#     for target_direction in [NORTH, EAST, SOUTH, WEST]:
+#         face_direction(target_direction)
+#
+#         next_x, next_y = next_position()
+#
+#         if front_is_clear() and (next_x, next_y) not in visited:
+#             move_smart()
+#             explore()
+#
+#             turn_around()
+#             move_smart()
+#             turn_around()
+#
+#     face_direction(start_direction)
+#
+#
+# def main():
+#     set_start_direction()
+#     explore()
+def turn_right():
+    turn_left()
+    turn_left()
     turn_left()
 
-    direction = (direction - 1) % 4
+def move_to_wall():
+    while front_is_clear():
+        move()
+
+def step_up_from_right_side():
+    turn_left()
+
+    if front_is_clear():
+        move()
+        turn_left()
+        return True
+
+    turn_right()
+    return False
 
 
-def turn_right():
-    turn_left_smart()
-    turn_left_smart()
-    turn_left_smart()
+def step_up_from_left_side():
+    turn_right()
+
+    if front_is_clear():
+        move()
+        turn_right()
+        return True
+
+    turn_left()
+    return False
+
+def go_around():
+    while front_is_clear():
+        move()
+        if front_is_blocked():
+            turn_left()
+
+def cover_all_squares():
+    while True:
+        move_to_wall()
+
+        if facing_east():
+            if not step_up_from_right_side():
+                break
+        elif facing_west():
+            if not step_up_from_left_side():
+                break
 
 
-def turn_around():
-    turn_left_smart()
-    turn_left_smart()
+def step_down_from_left():
+    if left_is_blocked():
+        turn_left()
+        move()
+        turn_left()
 
-
-def face_direction(target_direction):
-    while direction != target_direction:
-        turn_left_smart()
-
-
-def move_smart():
-    global current_x
-    global current_y
-
-    move()
-
-    if direction == NORTH:
-        current_y += 1
-    elif direction == EAST:
-        current_x += 1
-    elif direction == SOUTH:
-        current_y -= 1
-    elif direction == WEST:
-        current_x -= 1
-
-
-def next_position():
-    if direction == NORTH:
-        return current_x, current_y + 1
-    elif direction == EAST:
-        return current_x + 1, current_y
-    elif direction == SOUTH:
-        return current_x, current_y - 1
-    elif direction == WEST:
-        return current_x - 1, current_y
-
-
-def pick_all_here():
-    while beepers_present():
-        pick_beeper()
-
-
-def explore():
-    visited.add((current_x, current_y))
-
-    pick_all_here()
-
-    start_direction = direction
-
-    for target_direction in [NORTH, EAST, SOUTH, WEST]:
-        face_direction(target_direction)
-
-        next_x, next_y = next_position()
-
-        if front_is_clear() and (next_x, next_y) not in visited:
-            move_smart()
-            explore()
-
-            turn_around()
-            move_smart()
-            turn_around()
-
-    face_direction(start_direction)
-
+def step_down_from_right():
+    if right_is_blocked():
+        turn_right()
+        move()
+        turn_right()
 
 def main():
-    set_start_direction()
-    explore()
+    cover_all_squares()
+
 
 
 if __name__ == "__main__":
